@@ -1,0 +1,43 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV container=docker
+
+# 必要パッケージのインストール
+RUN apt-get update && \
+    apt-get install -y \
+      systemd systemd-sysv dbus dbus-x11 \
+      gnome-shell ubuntu-desktop-minimal gdm3 \
+      x11vnc novnc websockify \
+      xvfb \
+      sudo locales \
+    && apt-get clean
+
+# ロケール設定
+RUN locale-gen en_US.UTF-8 ja_JP.UTF-8 && \
+    update-locale LANG=ja_JP.UTF-8
+
+# gnome ユーザー作成（sudo パスワード不要）
+RUN useradd -m -s /bin/bash gnome && \
+    echo 'gnome ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/gnome
+
+# 不要サービスをマスク
+RUN systemctl mask \
+      systemd-udevd.service \
+      systemd-udev-trigger.service \
+      systemd-modules-load.service \
+      systemd-remount-fs.service \
+      getty@.service \
+      console-getty.service || true
+
+# デフォルトターゲットを GUI に
+RUN systemctl set-default graphical.target
+
+# systemd ユニットと起動スクリプトをコピー
+COPY gnome/gnome-vnc.service /etc/systemd/system/gnome-vnc.service
+COPY gnome/start-gnome-vnc.sh /usr/local/bin/start-gnome-vnc.sh
+
+RUN chmod +x /usr/local/bin/start-gnome-vnc.sh && \
+    systemctl enable gnome-vnc.service
+
+CMD ["/lib/systemd/systemd"]
