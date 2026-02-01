@@ -1,15 +1,21 @@
 [Unit]
-Description=GNOME desktop with VNC/noVNC
+Description=GNOME desktop over Xvfb + x11vnc + noVNC
 After=network.target
-Wants=network.target
 
 [Service]
 Type=simple
-User=root
+User=gnome
+Environment=DISPLAY=:0
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+Environment=XDG_SESSION_TYPE=x11
+Environment=GDK_BACKEND=x11
+Environment=MUTTER_DEBUG_FORCE_NO_HW=1
+Environment=MUTTER_DEBUG_FORCE_NO_GL=1
+Environment=LIBGL_ALWAYS_SOFTWARE=1
+Environment=MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
+PAMName=login
 ExecStart=/usr/local/bin/start-gnome-vnc.sh
-Restart=on-failure
-RestartSec=5
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
-
