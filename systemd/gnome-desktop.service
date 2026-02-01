@@ -1,0 +1,15 @@
+[Unit]
+Description=GNOME desktop with VNC/noVNC
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/start-gnome-vnc.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
