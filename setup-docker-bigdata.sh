@@ -4,7 +4,7 @@
 sudo mkdir -p /mnt/bigdata
 if ! mountpoint -q /mnt/bigdata; then
     # マウントに失敗してもループしないよう || true を付与
-    sudo mount /dev/sda1 /mnt/bigdata || echo "Mount failed, maybe already mounted"
+    sudo mount /dev/sdc1 /mnt/bigdata || echo "Mount failed, maybe already mounted"
 fi
 
 # 2. 保存先ディレクトリの準備
