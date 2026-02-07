@@ -1,6 +1,6 @@
 # ubuntu-desktop-novnc
 
-echo "$GITHUB_TOKEN" | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
+echo "$GITHUB_TOKEN" | docker login ghcr.io -u "kk20100522" --password-stdin
 
  docker run -d \
   --privileged \
@@ -12,7 +12,7 @@ echo "$GITHUB_TOKEN" | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
   -v /workspaces/ubuntu-desktop-novnc/audio:/audio \
   -p 8080:8080 \
   -p 9000:9000 \
-  ghcr.io/kk20100522/gnome-desktop:v3
+  ghcr.io/kk20100522/gnome-desktop:v4
 
 # サービスの有効化（次回起動時用）
 docker exec gnome-desktop systemctl enable gnome-vnc
@@ -26,3 +26,12 @@ docker exec -it gnome-desktop bash
 
 docker commit gnome-desktop ghcr.io/$GITHUB_USER/gnome-desktop:v"バージョン数"
 docker push ghcr.io/$GITHUB_USER/gnome-desktop-test:v"バージョン数"
+
+# 音声出力
+pulseaudio --start
+
+pactl load-module module-null-sink sink_name=virtual_sink
+
+pactl set-default-sink virtual_sink
+
+node /audio/compare-server.js
