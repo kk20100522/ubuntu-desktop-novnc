@@ -17,7 +17,14 @@ sudo -u gnome bash -c 'gnome-session --session=ubuntu --disable-acceleration-che
 sleep 5
 
 # VNC サーバー起動
-x11vnc -display :0 -forever -nopw -shared &
+x11vnc -display :0 -forever -nopw -shared \
+  -quality 4 \
+  -encodings tight \
+  -fps 24 \
+  -noxdamage \
+  -nocursorshape \
+  -ncache 10 &
+
 sleep 2
 
 # noVNC 起動
