@@ -17,3 +17,10 @@ docker exec gnome-desktop systemctl enable gnome-vnc
 
 # サービスの即時開始
 docker exec gnome-desktop systemctl start gnome-vnc
+
+docker exec -u 0 gnome-desktop-restored bash -c "echo 'gnome:kk19370912' | chpasswd"
+
+docker exec -it gnome-desktop bash
+
+docker commit gnome-desktop ghcr.io/$GITHUB_USER/gnome-desktop:v"バージョン数"
+docker push ghcr.io/$GITHUB_USER/gnome-desktop-test:v"バージョン数"
