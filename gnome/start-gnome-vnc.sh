@@ -9,7 +9,7 @@ export MUTTER_DEBUG_FORCE_NO_HW=1
 export MUTTER_DEBUG_FORCE_NO_GL=1
 
 # Xvfb 起動
-Xvfb :0 -screen 0 1920x1080x24 &
+Xvfb :0 -screen 0 1024x576x24 &
 sleep 2
 
 # GNOME セッション起動（gnome ユーザーで）
@@ -18,9 +18,9 @@ sleep 5
 
 # VNC サーバー起動
 x11vnc -display :0 -forever -nopw -shared \
-  -quality 4 \
+  -quality 6 \
   -encodings tight \
-  -fps 24 \
+  -fps 30 \
   -noxdamage \
   -nocursorshape \
   -ncache 10 &
