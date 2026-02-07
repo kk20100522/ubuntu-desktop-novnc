@@ -10,7 +10,7 @@ docker run -d \
 --tmpfs /run --tmpfs /run/lock \
 -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
 -p 8080:8080 \
-ghcr.io/kk20100522/gnome-desktop:latest
+ghcr.io/kk20100522/gnome-desktop:"バージョン数"
 
 # サービスの有効化（次回起動時用）
 docker exec gnome-desktop systemctl enable gnome-vnc
