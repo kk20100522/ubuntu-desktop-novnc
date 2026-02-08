@@ -38,3 +38,9 @@ node /audio/compare-server.js
 
 (venv) gnome@4f64c9fe9292:~$ pip install pygame
 Requirement already satisfied: pygame in ./venv/lib/python3.12/site-packages (2.6.1)
+
+(venv) gnome@4f64c9fe9292:~$ pip --version
+pip 24.0 from /home/gnome/venv/lib/python3.12/site-packages/pip (python 3.12)
+(venv) gnome@4f64c9fe9292:~$ pip install pygame
+Requirement already satisfied: pygame in ./venv/lib/python3.12/site-packages (2.6.1)
+(venv) gnome@4f64c9fe9292:~$ 
