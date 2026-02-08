@@ -35,3 +35,6 @@ pactl load-module module-null-sink sink_name=virtual_sink
 pactl set-default-sink virtual_sink
 
 node /audio/compare-server.js
+
+(venv) gnome@4f64c9fe9292:~$ pip install pygame
+Requirement already satisfied: pygame in ./venv/lib/python3.12/site-packages (2.6.1)
