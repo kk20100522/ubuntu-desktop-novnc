@@ -25,7 +25,7 @@ docker exec -u 0 gnome-desktop-restored bash -c "echo 'gnome:kk19370912' | chpas
 docker exec -it gnome-desktop bash
 
 docker commit gnome-desktop ghcr.io/$GITHUB_USER/gnome-desktop:v"バージョン数"
-docker push ghcr.io/$GITHUB_USER/gnome-desktop-test:v"バージョン数"
+docker push ghcr.io/$GITHUB_USER/gnome-desktop:v"バージョン数"
 
 # 音声出力
 pulseaudio --start
