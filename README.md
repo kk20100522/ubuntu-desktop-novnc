@@ -1,5 +1,5 @@
 # ubuntu-desktop-novnc
-
+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
 echo "$GITHUB_TOKEN" | docker login ghcr.io -u "kk20100522" --password-stdin
 
 docker run -d \
