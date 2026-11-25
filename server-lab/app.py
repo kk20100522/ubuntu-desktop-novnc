@@ -1,9 +1,19 @@
 from flask import Flask
 import redis
+from redis.backoff import ExponentialBackoff
+from redis.retry import Retry
 import socket
 
 app = Flask(__name__)
-cache = redis.Redis(host='redis-db', port=6379)
+retry = Retry(ExponentialBackoff(cap=0.5, base=0.01), 3)
+pool = redis.ConnectionPool(
+    host='redis-db',
+    port=6379,
+    max_connections=2000,
+    retry=retry,
+    retry_on_timeout=True
+)
+cache = redis.Redis(connection_pool=pool)
 
 @app.route('/')
 def index():

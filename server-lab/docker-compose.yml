@@ -7,19 +7,41 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     sysctls:
       - net.core.somaxconn=4096
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
     depends_on:
       - web-app-1
       - web-app-2
 
   web-app-1:
     build: .
+    sysctls:
+      - net.core.somaxconn=4096
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
     depends_on:
       - redis-db
 
   web-app-2:
     build: .
+    sysctls:
+      - net.core.somaxconn=4096
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
     depends_on:
       - redis-db
 
   redis-db:
     image: redis:alpine
+    sysctls:
+      - net.core.somaxconn=4096
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
