@@ -5,6 +5,8 @@ from redis.retry import Retry
 import socket
 
 app = Flask(__name__)
+HOSTNAME = socket.gethostname()
+
 retry = Retry(ExponentialBackoff(cap=0.5, base=0.01), 3)
 pool = redis.ConnectionPool(
     host='redis-db',
@@ -18,9 +20,8 @@ cache = redis.Redis(connection_pool=pool)
 @app.route('/')
 def index():
     count = cache.incr('cnt')
-    hostname = socket.gethostname()
     return f"""
     <h1>✅ Dockerfile構成で稼働中！</h1>
     <p><b>アクセス数:</b> {count}</p>
-    <p><b>応答サーバーID:</b> {hostname}</p>
+    <p><b>応答サーバーID:</b> {HOSTNAME}</p>
     """
