@@ -47,6 +47,7 @@ services:
         soft: 65535
         hard: 65535
 
+  # ▼ ここから監視システムを追加
   nginx-exporter:
     image: nginx/nginx-prometheus-exporter:latest
     command:
@@ -67,16 +68,5 @@ services:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
-    depends_on:
-      - prometheus
-
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    privileged: true
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
     depends_on:
       - prometheus
